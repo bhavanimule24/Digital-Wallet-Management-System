@@ -1,0 +1,50 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+bool compare(const pair<int,int>&a,const pair<int,int>&b){
+    return a.second<b.second;
+}
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int n;
+    cin>>n;
+    vector<pair<int,int>>arr;
+    for(auto i=0;i<n;i++){
+        int m,l;
+        cin>>m>>l;
+        arr.push_back(make_pair(m,l));
+    }
+    int t;
+    cin>>t;
+    vector<pair<int,int>>v;
+    vector<int>p;
+    for(int i=0;i<t;i++){
+        int f,g,h;
+        cin>>f>>g>>h;
+        v.push_back(make_pair(f,g));
+        p.push_back(h);
+    }
+    int k=v.size();
+    for(int i=0;i<k;i++){
+        int from_id=v[i].first-1;
+        int to_id=v[i].second-1;
+        if(arr[from_id].second>=p[i]){
+            arr[from_id].second-=p[i];
+            arr[to_id].second+=p[i];
+            cout<<"Success"<<"\n";
+        }
+        else
+            cout<<"Failure"<<"\n";
+    }
+    sort(arr.begin(),arr.end(),compare);
+    cout<<"\n";
+    for(int i=0;i<n;i++){
+        cout<<arr[i].first<<" "<<arr[i].second<<"\n";
+    }
+    return 0;
+}
